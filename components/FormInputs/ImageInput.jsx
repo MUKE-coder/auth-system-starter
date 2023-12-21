@@ -1,4 +1,4 @@
-import { UploadDropzone } from "@/lib/uploadthing";
+import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
 import { Pencil } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -24,10 +24,10 @@ export default function ImageInput({
           <button
             onClick={() => setImageUrl("")}
             type="button"
-            className="flex space-x-2  bg-slate-900 rounded-md shadow text-slate-50  py-2 px-4"
+            className="flex space-x-2  bg-slate-900 rounded-md shadow text-slate-50  py-1.5 px-3"
           >
-            <Pencil className="w-5 h-5" />
-            <span>Change Image</span>
+            <Pencil className="w-4 h-4" />
+            <span className="text-sm">Change Image</span>
           </button>
         )}
       </div>
@@ -37,24 +37,26 @@ export default function ImageInput({
           alt="Item image"
           width={1000}
           height={667}
-          className="w-full h-64 object-contain"
+          className="w-16 h-16 object-contain rounded-full"
         />
       ) : (
-        <UploadDropzone
-          endpoint={endpoint}
-          onClientUploadComplete={(res) => {
-            setImageUrl(res[0].url);
-            // Do something with the response
-            toast.success("Image Upload complete");
-            console.log("Files: ", res);
-            console.log("Upload Completed");
-          }}
-          onUploadError={(error) => {
-            toast.error("Image Upload Failed, Try Again");
-            // Do something with the error.
-            console.log(`ERROR! ${error.message}`, error);
-          }}
-        />
+        <div className="w-full h-24">
+          <UploadButton
+            endpoint={endpoint}
+            onClientUploadComplete={(res) => {
+              setImageUrl(res[0].url);
+              // Do something with the response
+              toast.success("Image Upload complete");
+              console.log("Files: ", res);
+              console.log("Upload Completed");
+            }}
+            onUploadError={(error) => {
+              toast.error("Image Upload Failed, Try Again");
+              // Do something with the error.
+              console.log(`ERROR! ${error.message}`, error);
+            }}
+          />
+        </div>
       )}
     </div>
   );
